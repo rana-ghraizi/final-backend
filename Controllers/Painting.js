@@ -36,6 +36,52 @@ export const getPaintngById = async (req, res) => {
   }
 };
 
+// get paintings by categoryId
+export const getAllPaintingsByCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    const paintings = await Painting.find({ categoryId, soldOut: false })
+      .populate("categoryId styleId")
+      .exec();
+
+    res.status(200).json(paintings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// get paintings by styleId
+export const getAllPaintingsByStyle = async (req, res) => {
+  try {
+    const styleId = req.params.styleId;
+
+    const paintings = await Painting.find({ styleId, soldOut: false })
+      .populate("categoryId styleId")
+      .exec();
+
+    res.status(200).json(paintings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// get paintings by userId
+export const getAllPaintingsByUserId = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const paintings = await Painting.find({ userId, soldOut: false })
+      .populate("categoryId styleId")
+      .exec();
+
+    res.status(200).json(paintings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 // add painting
 export const createPainting = async (req, res) => {
   try {
