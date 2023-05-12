@@ -5,6 +5,8 @@ import connectDB from "./config/db.js";
 import cors from "cors";
 import bodyParser from "body-parser";
 import router from "./Routes/Auth.js";
+import categoriesRoute from './Routes/Category.js';
+
 
 
 dotenv.config();
@@ -24,6 +26,8 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 app.use("/", router);
+app.use("/category", categoriesRoute);
+
 
 app.listen(
   PORT,
