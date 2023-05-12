@@ -7,7 +7,7 @@ import bodyParser from "body-parser";
 import router from "./Routes/Auth.js";
 import categoriesRoute from './Routes/Category.js';
 import stylesRoute from './Routes/Style.js';
-
+import paintingsRoute from './Routes/Painting.js';
 
 
 dotenv.config();
@@ -29,6 +29,8 @@ app.use(cors());
 app.use("/", router);
 app.use("/category", categoriesRoute);
 app.use("/style", stylesRoute);
+app.use("/painting", paintingsRoute);
+
 
 
 

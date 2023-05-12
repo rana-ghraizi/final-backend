@@ -1,0 +1,34 @@
+import multer from "multer";
+import fs from "fs";
+
+const dir = "images";
+
+if (!fs.existsSync(dir)) {  // CREATE DIRECTORY IF NOT FOUND
+  fs.mkdirSync(dir, { recursive: true });
+}
+const fileStorageEngine = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: fileStorageEngine });
+
+export default upload;
+
+// import multer from 'multer';
+
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, 'path/to/destination'); // Set the desired destination folder
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, file.originalname); // Use the original file name
+//   },
+// });
+
+// const upload = multer({ storage: storage });
+
+// export const uploadMiddleware = upload.single('file');

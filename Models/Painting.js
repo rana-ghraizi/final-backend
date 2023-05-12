@@ -8,8 +8,14 @@ const PaintingSchema = new Schema({
     required: true,
   },
   image: {
-    type: String,
-    default: "",
+    public_id:{
+       type: String,
+       required: true,
+    },
+    url:{
+       type: String,
+       required: true,
+    }
   },
   price: {
     type: Number,
