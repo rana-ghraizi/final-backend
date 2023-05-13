@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
 const orderSchema = new Schema(
   {
@@ -16,24 +16,18 @@ const orderSchema = new Schema(
           ref: "Painting",
           required: true,
         },
-        // name: {
-        //   type: String,
-        // },
       },
     ],
-
     total_price: {
       type: Number,
       required: true,
     },
-
     status: {
       type: String,
       enum: ["pending", "processed"],
       default: "pending",
     },
   },
-
   { timestamps: true }
 );
 

@@ -9,6 +9,7 @@ import categoriesRoute from './Routes/Category.js';
 import stylesRoute from './Routes/Style.js';
 import paintingsRoute from './Routes/Painting.js';
 import cartRoute from './Routes/Cart.js';
+import orderRoutes from './Routes/Order.js'
 
 dotenv.config();
 
@@ -31,7 +32,7 @@ app.use("/category", categoriesRoute);
 app.use("/style", stylesRoute);
 app.use("/painting", paintingsRoute);
 app.use("/cart", cartRoute);
-
+app.use("/order", orderRoutes);
 
 
 
