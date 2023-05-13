@@ -96,3 +96,19 @@ export const getAllUserOrders = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+// get all orders done by a specific user
+export const getAllOrdersForUser = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+
+    const orders = await Order.find({ user: userId })
+      .populate("user", "username address phonenumber")
+      .populate("orderedPaintings.paintingId", "title image price size soldOut");
+
+    res.json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
