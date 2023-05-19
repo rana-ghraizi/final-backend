@@ -10,7 +10,7 @@ cloudinary.config({
 // get all paintings
 export const getAllPaintings = async (req, res) => {
   try {
-    const paintings = await Painting.find({ soldOut: false })
+    const paintings = await Painting.find()
       .populate("categoryId styleId")
       .exec();
     res.status(200).json(paintings);
@@ -41,7 +41,7 @@ export const getAllPaintingsByCategory = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
 
-    const paintings = await Painting.find({ categoryId, soldOut: false })
+    const paintings = await Painting.find({ categoryId })
       .populate("categoryId styleId")
       .exec();
 
@@ -56,7 +56,7 @@ export const getAllPaintingsByStyle = async (req, res) => {
   try {
     const styleId = req.params.styleId;
 
-    const paintings = await Painting.find({ styleId, soldOut: false })
+    const paintings = await Painting.find({ styleId })
       .populate("categoryId styleId")
       .exec();
 
@@ -71,7 +71,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    const paintings = await Painting.find({ userId, soldOut: false })
+    const paintings = await Painting.find({ userId })
       .populate("categoryId styleId")
       .exec();
 
