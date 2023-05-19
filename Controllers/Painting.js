@@ -86,7 +86,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
 export const createPainting = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { title, image, categoryId, styleId, price, size } = req.body;
+    const { title, image, description, categoryId, styleId, price, size } = req.body;
 
     // Upload the image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -94,6 +94,7 @@ export const createPainting = async (req, res) => {
     const painting = new Painting({
       userId,
       title,
+      description,
       image: {
         public_id: result.public_id,
         url: result.secure_url,
@@ -120,7 +121,7 @@ export const createPainting = async (req, res) => {
 export const updatePainting = async (req, res) => {
   try {
     const paintingId = req.params.id;
-    const { title, categoryId, styleId, price, size } = req.body;
+    const { title, description, categoryId, styleId, price, size } = req.body;
     let image;
 
     // Upload the image to cloudinary (if needed)
@@ -136,6 +137,7 @@ export const updatePainting = async (req, res) => {
       paintingId,
       {
         title,
+        description,
         image,
         categoryId,
         styleId,
