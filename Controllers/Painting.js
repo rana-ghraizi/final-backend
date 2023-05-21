@@ -11,7 +11,7 @@ cloudinary.config({
 export const getAllPaintings = async (req, res) => {
   try {
     const paintings = await Painting.find()
-      .populate("categoryId styleId")
+      .populate("categoryId")
       .exec();
     res.status(200).json(paintings);
   } catch (error) {
@@ -24,7 +24,7 @@ export const getPaintngById = async (req, res) => {
   const { id } = req.params;
   try {
     const painting = await Painting.findById(id)
-      .populate("categoryId styleId")
+      .populate("categoryId")
       .exec();
     if (!painting) {
       res.status(404).json({ message: "Painting not found" });
@@ -42,22 +42,7 @@ export const getAllPaintingsByCategory = async (req, res) => {
     const categoryId = req.params.categoryId;
 
     const paintings = await Painting.find({ categoryId })
-      .populate("categoryId styleId")
-      .exec();
-
-    res.status(200).json(paintings);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-// get paintings by styleId
-export const getAllPaintingsByStyle = async (req, res) => {
-  try {
-    const styleId = req.params.styleId;
-
-    const paintings = await Painting.find({ styleId })
-      .populate("categoryId styleId")
+      .populate("categoryId")
       .exec();
 
     res.status(200).json(paintings);
@@ -72,7 +57,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
     const userId = req.params.userId;
 
     const paintings = await Painting.find({ userId })
-      .populate("categoryId styleId")
+      .populate("categoryId")
       .exec();
 
     res.status(200).json(paintings);
@@ -86,7 +71,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
 export const createPainting = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { title, image, description, categoryId, styleId, price, size } = req.body;
+    const { title, image, description, categoryId, price, size } = req.body;
 
     // Upload the image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
@@ -100,7 +85,6 @@ export const createPainting = async (req, res) => {
         url: result.secure_url,
       },
       categoryId,
-      styleId,
       price,
       size,
     });
@@ -121,7 +105,7 @@ export const createPainting = async (req, res) => {
 export const updatePainting = async (req, res) => {
   try {
     const paintingId = req.params.id;
-    const { title, description, categoryId, styleId, price, size } = req.body;
+    const { title, description, categoryId, price, size } = req.body;
     let image;
 
     // Upload the image to cloudinary (if needed)
@@ -140,7 +124,6 @@ export const updatePainting = async (req, res) => {
         description,
         image,
         categoryId,
-        styleId,
         price,
         size,
       },

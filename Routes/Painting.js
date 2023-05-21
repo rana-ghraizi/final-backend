@@ -7,7 +7,6 @@ import {
     createPainting,
     getPaintngById,
     getAllPaintingsByCategory,
-    getAllPaintingsByStyle,
     getAllPaintingsByUserId,
     updatePainting,
     deletePainting,
@@ -16,7 +15,6 @@ import {
 router.get('/', getAllPaintings);
 router.get('/:id', getPaintngById);
 router.get('/category/:categoryId', getAllPaintingsByCategory);
-router.get('/style/:styleId', getAllPaintingsByStyle);
 router.get('/user/:userId', getAllPaintingsByUserId);
 router.post('/:id', Upload.single('image'),createPainting)
 router.put('/:id', Upload.single('image'), updatePainting);

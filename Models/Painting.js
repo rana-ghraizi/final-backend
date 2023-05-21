@@ -39,11 +39,6 @@ const PaintingSchema = new Schema({
     ref: "Category",
     required: true,
   },
-  styleId: {
-    type: Schema.Types.ObjectId,
-    ref: "Style",
-    required: true,
-  },
   soldOut: {
     type: Boolean,
     default: false,
