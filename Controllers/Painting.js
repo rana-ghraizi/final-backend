@@ -71,7 +71,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
 export const createPainting = async (req, res) => {
   try {
     const userId = req.params.id;
-    const { title, image, description, categoryId, price, size } = req.body;
+    const { title, description, categoryId, price, size } = req.body;
 
     // Upload the image to cloudinary
     const result = await cloudinary.uploader.upload(req.file.path);
