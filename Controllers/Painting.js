@@ -7,10 +7,22 @@ cloudinary.config({
   api_secret: "kAMfgwF-GOcbLqMo1cSSta-WNx0",
 });
 
-// get all paintings
+// get all paintings with confirmed status
 export const getAllPaintings = async (req, res) => {
   try {
     const paintings = await Painting.find({ status: "confirmed" })
+      .populate("categoryId")
+      .exec();
+    res.status(200).json(paintings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// get all paintings
+export const getPaintings = async (req, res) => {
+  try {
+    const paintings = await Painting.find()
       .populate("categoryId")
       .exec();
     res.status(200).json(paintings);

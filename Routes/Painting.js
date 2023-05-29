@@ -4,6 +4,7 @@ const router = express.Router();
 import Upload from '../middleware/Upload.js'
 import {
     getAllPaintings,
+    getPaintings,
     createPainting,
     getPaintngById,
     getAllPaintingsByCategory,
@@ -14,6 +15,7 @@ import {
   } from "../Controllers/Painting.js";
 
 router.get('/', getAllPaintings);
+router.get('/status', getPaintings);
 router.get('/:id', getPaintngById);
 router.get('/category/:categoryId', getAllPaintingsByCategory);
 router.get('/user/:userId', getAllPaintingsByUserId);
