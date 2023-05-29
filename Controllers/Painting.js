@@ -10,7 +10,7 @@ cloudinary.config({
 // get all paintings
 export const getAllPaintings = async (req, res) => {
   try {
-    const paintings = await Painting.find()
+    const paintings = await Painting.find({ status: "confirmed" })
       .populate("categoryId")
       .exec();
     res.status(200).json(paintings);
@@ -23,7 +23,7 @@ export const getAllPaintings = async (req, res) => {
 export const getPaintngById = async (req, res) => {
   const { id } = req.params;
   try {
-    const painting = await Painting.findById(id)
+    const painting = await Painting.findById({ _id: id, status: "confirmed" })
       .populate("categoryId")
       .exec();
     if (!painting) {
@@ -41,7 +41,7 @@ export const getAllPaintingsByCategory = async (req, res) => {
   try {
     const categoryId = req.params.categoryId;
 
-    const paintings = await Painting.find({ categoryId })
+    const paintings = await Painting.find({ categoryId, status: "confirmed" })
       .populate("categoryId")
       .exec();
 
@@ -56,7 +56,7 @@ export const getAllPaintingsByUserId = async (req, res) => {
   try {
     const userId = req.params.userId;
 
-    const paintings = await Painting.find({ userId })
+    const paintings = await Painting.find({ userId, status: "confirmed" })
       .populate("categoryId")
       .exec();
 
@@ -65,7 +65,6 @@ export const getAllPaintingsByUserId = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 // add painting
 export const createPainting = async (req, res) => {
@@ -158,5 +157,21 @@ export const deletePainting = async (req, res) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+// update the status of a painting
+export const updatePaintingStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const painting = await Painting.findById(req.params.id);
+    if (!painting) {
+      return res.status(404).json({ error: "Painting not found" });
+    }
+    painting.status = status;
+    await painting.save();
+    res.json(painting);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
   }
 };

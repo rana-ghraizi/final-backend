@@ -43,6 +43,11 @@ const PaintingSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  status: {
+    type: String,
+    enum: ["rejected", "pending", "confirmed"],
+    default: "pending",
+  },
 
 });
 
